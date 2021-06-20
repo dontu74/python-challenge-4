@@ -35,35 +35,78 @@ right_pad.goto(350,0)
 
 # Adding a ball in the game
 ball = turtle.Turtle()
-ball.speed(0) # set the max speed (speed of animation - the turtle module)
+ball.speed(-2) # set the max speed (speed of animation - the turtle module)
 ball.shape("circle") # set the paddle shape as square
 ball.color("yellow") # assigning the color of the paddle 
 ball.penup() 
 ball.goto(0,0)
+ball.dx = 0.15 #set the ball to move up the x cor by 2 px
+ball.dy = -0.15 #set the ball move up the y cor by 4 px
 
-# Function - making the paddle move up and down
-def pad_mov_up():
+# Function - making the LEFT paddle move up and down
+def left_pad_mov_up():
     y = left_pad.ycor()
     y +=20 
     # add 20 px to the Y coordinate
     left_pad.sety(y)
     # print("world")
-
-
-def pad_mov_down():
+    
+def left_pad_mov_down():
     y = left_pad.ycor()
     y -= 20 
     left_pad.sety(y)
 
+# Function - making the RIGHT paddle move up and down
+def right_pad_mov_up():
+    y = right_pad.ycor()
+    y +=20 
+    # add 20 px to the Y coordinate
+    right_pad.sety(y)
+    # print("world")
+
+def right_pad_mov_down():
+    y = right_pad.ycor()
+    y -= 20 
+    right_pad.sety(y)
+
 # Keyboard binding - listen for the user keyboard input
 wind.listen()
-wind.onkeypress(pad_mov_up,"w")
-wind.onkeypress(pad_mov_down,"s")
-wind.onkeypress(pad_mov_up,"Up")
-wind.onkeypress(pad_mov_down,"Down")
+wind.onkeypress(left_pad_mov_up,"w")
+wind.onkeypress(left_pad_mov_down,"s")
+wind.onkeypress(right_pad_mov_up,"Up")
+wind.onkeypress(right_pad_mov_down,"Down")
 
 
 # using while loop as a main game loop, every time the loop runs, the windows will get updated
 while True:
     wind.update()
 
+    # Make the ball move
+    ball.setx(ball.xcor() +  ball.dx)
+    ball.sety(ball.ycor() +  ball.dy)
+
+    # # Check the screen border - so the ball does not go off screen
+    if ball.ycor() > 290:
+        ball.sety(290)
+        ball.dy *= -1  # reverse the direction if the ball hits 290
+
+    if ball.ycor() < -290:
+        ball.sety(-290)
+        ball.dy *= -1  # reverse the direction if the ball hits 290
+
+    if ball.xcor() > 390: 
+        ball.goto(0,0)
+        ball.dx *= -1
+
+    if ball.xcor() < -390: 
+        ball.goto(0,0)
+        ball.dx *= -1
+
+    # Paddle and ball hit
+    if (ball.xcor() > 340 and ball.xcor() < 350) and (ball.ycor() < right_pad.ycor() + 40 and ball.ycor() > right_pad.ycor() - 40):
+        ball.setx(340)
+        ball.dx *= -1
+
+    if (ball.xcor() < -340 and ball.xcor() > -350) and (ball.ycor() < left_pad.ycor() + 40 and ball.ycor() > left_pad.ycor() - 40):
+        ball.setx(-340)
+        ball.dx *= -1
