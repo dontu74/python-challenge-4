@@ -19,4 +19,7 @@ creating a python "Pong" game
 1. The paddle function does not work. It has this error message when I set the Y coordinates
 ` line 46, in pad_mov_up pad_mov_up.sety(y) AttributeError: 'function' object has no attribute 'sety'`
 
+### Solution: 
+1. Always check for syntax error. In the function, the `sety` should have a variable of the Paddle #1
+
 ![Solution](images/)

@@ -1,11 +1,8 @@
 #Python Challenge # 4
 # In this challenge I am working tutorial based on TokyoEdtech. Credits go to @TeokyoEdTech
 
-# import sys
-# import os
-# from tkinter import *
 import turtle
-import time
+
 
 # in this session, i am creating a pop-up small screen using the build in method 'Screen()'
 # i would like the window screen to be 950px x 750
@@ -17,24 +14,24 @@ wind.setup(width=800, height=600)
 wind.tracer(0) # the tracer stops the window from updating and will speed up the game instead of lagging
 
 # Adding paddle #1 to the game. Turtle = is a class from the "import turtle" library
-paddle_1 = turtle.Turtle()
-paddle_1.speed(0) # set the max speed (speed of animation - the turtle module)
-paddle_1.shape("square") # set the paddle shape as square
-paddle_1.color("navy") # assigning the color of the paddle 
-paddle_1.shapesize(stretch_wid=5, stretch_len=1)
-paddle_1.penup() 
-# paddle_1.sety(-350)
-paddle_1.goto(-350,0)
+left_pad = turtle.Turtle()
+left_pad.speed(0) # set the max speed (speed of animation - the turtle module)
+left_pad.shape("square") # set the paddle shape as square
+left_pad.color("navy") # assigning the color of the paddle 
+left_pad.shapesize(stretch_wid=5, stretch_len=1)
+left_pad.penup() 
+# left_pad.sety(-350)
+left_pad.goto(-350,0)
 
 # Adding paddle #2 to the game
-paddle_2 = turtle.Turtle()
-paddle_2.speed(0) # set the max speed (speed of animation - the turtle module)
-paddle_2.shape("square") # set the paddle shape as square
-paddle_2.color("navy") # assigning the color of the paddle 
-paddle_2.shapesize(stretch_wid=5, stretch_len=1) # to stretch the paddle width, i use shapesize()
-paddle_2.penup() 
+right_pad = turtle.Turtle()
+right_pad.speed(0) # set the max speed (speed of animation - the turtle module)
+right_pad.shape("square") # set the paddle shape as square
+right_pad.color("navy") # assigning the color of the paddle 
+right_pad.shapesize(stretch_wid=5, stretch_len=1) # to stretch the paddle width, i use shapesize()
+right_pad.penup() 
 
-paddle_2.goto(350,0)
+right_pad.goto(350,0)
 
 # Adding a ball in the game
 ball = turtle.Turtle()
@@ -46,24 +43,24 @@ ball.goto(0,0)
 
 # Function - making the paddle move up and down
 def pad_mov_up():
-    y = paddle_1.ycor()
+    y = left_pad.ycor()
     y +=20 
     # add 20 px to the Y coordinate
-    pad_mov_up.sety(y)
+    left_pad.sety(y)
     # print("world")
 
 
 def pad_mov_down():
-    y = paddle_1.ycor()
+    y = left_pad.ycor()
     y -= 20 
-    # add 20 px to the Y coordinate
-    pad_mov_down.sety(y)
-    # print("hello")
+    left_pad.sety(y)
 
 # Keyboard binding - listen for the user keyboard input
 wind.listen()
-wind.onkeypress(pad_mov_up,"p")
+wind.onkeypress(pad_mov_up,"w")
 wind.onkeypress(pad_mov_down,"s")
+wind.onkeypress(pad_mov_up,"Up")
+wind.onkeypress(pad_mov_down,"Down")
 
 
 # using while loop as a main game loop, every time the loop runs, the windows will get updated
