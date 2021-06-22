@@ -35,9 +35,9 @@ right_pad.goto(350,0)
 
 # Adding a ball in the game
 ball = turtle.Turtle()
-ball.speed(-2) # set the max speed (speed of animation - the turtle module)
+ball.speed(-1) # set the max speed (speed of animation - the turtle module)
 ball.shape("circle") # set the paddle shape as square
-ball.color("yellow") # assigning the color of the paddle 
+ball.color("orange") # assigning the color of the paddle 
 ball.penup() 
 ball.goto(0,0)
 ball.dx = 0.15 #set the ball to move up the x cor by 2 px
@@ -103,10 +103,10 @@ while True:
         ball.dx *= -1
 
     # Paddle and ball hit
-    if (ball.xcor() > 340 and ball.xcor() < 350) and (ball.ycor() < right_pad.ycor() + 40 and ball.ycor() > right_pad.ycor() - 40):
-        ball.setx(340)
+    if (ball.xcor() > 330 and ball.xcor() < 350) and (ball.ycor() < right_pad.ycor() + 40 and ball.ycor() > right_pad.ycor() - 40):
+        ball.setx(330)
         ball.dx *= -1
 
-    if (ball.xcor() < -340 and ball.xcor() > -350) and (ball.ycor() < left_pad.ycor() + 40 and ball.ycor() > left_pad.ycor() - 40):
-        ball.setx(-340)
+    if (ball.xcor() < -330 and ball.xcor() > -350) and (ball.ycor() < left_pad.ycor() + 40 and ball.ycor() > left_pad.ycor() - 40):
+        ball.setx(-330)
         ball.dx *= -1
