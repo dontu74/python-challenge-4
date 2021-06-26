@@ -30,7 +30,6 @@ right_pad.shape("square") # set the paddle shape as square
 right_pad.color("navy") # assigning the color of the paddle 
 right_pad.shapesize(stretch_wid=5, stretch_len=1) # to stretch the paddle width, i use shapesize()
 right_pad.penup() 
-
 right_pad.goto(350,0)
 
 # Adding a ball in the game
@@ -45,8 +44,8 @@ ball.dy = -0.15 #set the ball move up the y cor by 4 px
 
 # Function - making the LEFT paddle move up and down
 def left_pad_mov_up():
-    y = left_pad.ycor()
-    y +=20 
+    y = left_pad.ycor() # ycor in Turtle library return the Y coordinate
+    y +=20   # Add 20 px as it moves up
     # add 20 px to the Y coordinate
     left_pad.sety(y)
     # print("world")
@@ -69,12 +68,25 @@ def right_pad_mov_down():
     y -= 20 
     right_pad.sety(y)
 
+# Display score on center of the screen as players are playing the game
+pen = turtle.Turtle()
+pen.speed(0)
+pen.color("purple")
+pen.penup()
+pen.hideturtle()
+pen.goto(0, 260)
+pen.write("Player 1:  0 Player 2:  0", align="center", font=("Comic Sans MS", 20, "normal"))
+
+# Game Score
+score_a = 0
+score_b = 0
+
 # Keyboard binding - listen for the user keyboard input
 wind.listen()
-wind.onkeypress(left_pad_mov_up,"w")
-wind.onkeypress(left_pad_mov_down,"s")
-wind.onkeypress(right_pad_mov_up,"Up")
-wind.onkeypress(right_pad_mov_down,"Down")
+wind.onkeypress(left_pad_mov_up,"w") # call the move up function as user press 'w' key (mainly for the left side player)
+wind.onkeypress(left_pad_mov_down,"s") # call the move down function as user press 's' key ( mainly for the left side player)
+wind.onkeypress(right_pad_mov_up,"Up") # call the move up function as user press the 'Up' arrow (mainly for the right side player)
+wind.onkeypress(right_pad_mov_down,"Down") # call the move down function as user press the 'Down' arrow (mainly for the right side player)
 
 
 # using while loop as a main game loop, every time the loop runs, the windows will get updated
@@ -85,7 +97,7 @@ while True:
     ball.setx(ball.xcor() +  ball.dx)
     ball.sety(ball.ycor() +  ball.dy)
 
-    # # Check the screen border - so the ball does not go off screen
+    # Check the screen border - if the ball goes off the screen, it will reverse its direction by setting ball.dy *= -1
     if ball.ycor() > 290:
         ball.sety(290)
         ball.dy *= -1  # reverse the direction if the ball hits 290
@@ -94,13 +106,21 @@ while True:
         ball.sety(-290)
         ball.dy *= -1  # reverse the direction if the ball hits 290
 
+    # Right side of the screen
     if ball.xcor() > 390: 
         ball.goto(0,0)
         ball.dx *= -1
-
+        score_a += 1  # if ball goes off the Right side of the screen, player 1 will get 1 point
+        pen.clear() # to clear the screen of old score before updating new score
+        pen.write("Player A:  {} Player B:  {}".format(score_a, score_b), align="center", font=("Comic Sans MS", 20, "normal")) # to update the score 
+       
+    # Left side of the screen
     if ball.xcor() < -390: 
         ball.goto(0,0)
         ball.dx *= -1
+        score_b += 1  # if ball goes off the Left side of the screen, player 2 will get 1 point
+        pen.clear() # to clear the screen of old score before updating new score
+        pen.write("Player A:  {} Player B:  {}".format(score_a, score_b), align="center", font=("Comic Sans MS", 20, "normal")) # to update the score 
 
     # Paddle and ball hit
     if (ball.xcor() > 330 and ball.xcor() < 350) and (ball.ycor() < right_pad.ycor() + 40 and ball.ycor() > right_pad.ycor() - 40):
