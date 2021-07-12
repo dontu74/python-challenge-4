@@ -59,8 +59,8 @@ When it hits the edge of the screen, the ball will reverse it direction - using 
 #### Solution 1: 
   * In the function calls, make sure the `sety` should have a variable of the Paddle #1
 
-#### Problem #1:
- * Ball does not touch the paddle smoothy. It is a little glitchy.
+#### Problem #2:
+ * Ball does not touch the paddle smoothly. It is a little glitchy.
 
 #### Solution #2: 
  * Reconfigure the `xcor` to be 330 px

@@ -2,7 +2,7 @@
 # In this challenge I am working tutorial based on TokyoEdtech. Credits go to @TeokyoEdTech
 
 import turtle
-
+import winsound # for Windows use 'winsound, for linux/mac - use import os
 
 # in this session, i am creating a pop-up small screen using the build in method 'Screen()'
 # i would like the window screen to be 950px x 750
@@ -101,11 +101,12 @@ while True:
     if ball.ycor() > 290:
         ball.sety(290)
         ball.dy *= -1  # reverse the direction if the ball hits 290
+     
 
     if ball.ycor() < -290:
         ball.sety(-290)
         ball.dy *= -1  # reverse the direction if the ball hits 290
-
+ 
     # Right side of the screen
     if ball.xcor() > 390: 
         ball.goto(0,0)
@@ -126,7 +127,12 @@ while True:
     if (ball.xcor() > 330 and ball.xcor() < 350) and (ball.ycor() < right_pad.ycor() + 40 and ball.ycor() > right_pad.ycor() - 40):
         ball.setx(330)
         ball.dx *= -1
+        winsound.PlaySound("pong.wav", winsound.SND_ASYNC) # for Windows - Asyncronous - play sound in the background or program will stop
+        # os.system("afplay pong.wav&") for linux
 
     if (ball.xcor() < -330 and ball.xcor() > -350) and (ball.ycor() < left_pad.ycor() + 40 and ball.ycor() > left_pad.ycor() - 40):
         ball.setx(-330)
         ball.dx *= -1
+        winsound.PlaySound("pong.wav", winsound.SND_ASYNC) # for Windows - Asyncronous - play sound in the background or program will stop
+        # os.system("afplay pong.wav&") for linux
+
